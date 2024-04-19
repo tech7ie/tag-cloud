@@ -1,11 +1,15 @@
 <template>
+  <img src="@/assets/logo.svg" style="height: 3vh; margin: 2vh;" />
   <div class="center">
     <div class="words">
       <vue-word-cloud
         style="height: 1800px; width: 2500px;"
         :words="words"
-        :color="colorFunction"
-        font-family="Roboto"
+        :color="'#a99cd1'"
+        :rotation="() => Math.random() * 2 - 1"
+        :spacing="0.2"
+        font-family="Verdana"
+        enter-animation="fade"
       >
         <template v-slot="{text, weight}">
           <div :title="weight" style="cursor: pointer;">
@@ -23,9 +27,9 @@ import VueWordCloud from 'vuewordcloud';
 
 let words = ref(JSON.parse(localStorage.getItem('words')) || []);
 
-const colorFunction = (word, index) => {
-  return index % 3 == 0 ? '#FF8300' : '#196cdf';
-};
+// const colorFunction = (word, index) => {
+//   return index % 3 == 0 ? '#a99cd1';
+// };
 
 
 function getRandomInt(min, max) {
@@ -38,7 +42,7 @@ let socket;
 let intervalId;
 
 onMounted(() => {
-  socket = new WebSocket(`wss://${process.env.VUE_APP_BACKEND_URL}`);
+  socket = new WebSocket(`ws://${process.env.VUE_APP_BACKEND_URL}`);
   socket.addEventListener('message', function (event) {
   const word = event.data;
   const timestamp = Date.now();
@@ -51,7 +55,7 @@ onMounted(() => {
     existingWord[1] += 0.15;
     size = existingWord[1];
   } else {
-    size = getRandomInt(8, 9);
+    size = getRandomInt(6, 9);
     words.value.push([word, size, timestamp]);
   }
 
@@ -76,7 +80,7 @@ onUnmounted(() => {
 
 <style scoped>
 .center {
-  height: 99vh;
+  height: 92vh;
   width: 99vw;
   display: flex;
   justify-content: center;
