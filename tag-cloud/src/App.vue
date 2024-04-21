@@ -42,7 +42,7 @@ let socket;
 let intervalId;
 
 onMounted(() => {
-  socket = new WebSocket(`ws://${process.env.VUE_APP_BACKEND_URL}`);
+  socket = new WebSocket(`wss://${process.env.VUE_APP_BACKEND_URL}`);
   socket.addEventListener('message', function (event) {
   const word = event.data;
   const timestamp = Date.now();
