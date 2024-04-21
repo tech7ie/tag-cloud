@@ -1,11 +1,12 @@
 <template>
-  <img src="@/assets/logo.svg" style="height: 3vh; margin: 2vh;" />
+  <img src="@/assets/logo.svg" style="height: 3vh; margin: 2vh; margin-left: 30%; z-index: 99;" />
   <div class="center">
     <div class="words">
+      <img src="./assets/IMG_1460.jpg" alt="" class="back">
       <vue-word-cloud
         style="height: 1800px; width: 2500px;"
         :words="words"
-        :color="'#a99cd1'"
+        :color="'#ffffff'"
         :rotation="() => Math.random() * 2 - 1"
         :spacing="0.2"
         font-family="Verdana"
@@ -79,6 +80,15 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.back {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+
+  height: 100%;
+}
 .center {
   height: 92vh;
   width: 99vw;
