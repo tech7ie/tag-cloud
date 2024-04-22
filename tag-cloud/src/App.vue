@@ -8,7 +8,7 @@
             style="height: 1800px; width: 2500px;"
             :words="words"
             :color="'#ffffff'"
-            :rotation="() => (Math.random() * 30 - 15) * Math.PI / 180"
+            :rotation="0"
             :spacing="0.2"
             font-family="Verdana"
             enter-animation="fade"
