@@ -1,29 +1,31 @@
 <template>
-  <img src="@/assets/logo.svg" style="height: 3vh; margin-left: 30%; margin-top: 6vh; z-index: 99; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7))" />
-  <div class="center">
-    <div class="words">
-      <img src="./assets/IMG_1460.jpg" alt="" class="back">
-      <vue-word-cloud
-        style="height: 1800px; width: 2500px;"
-        :words="words"
-        :color="'#ffffff'"
-        :rotation="() => Math.random() * 2 - 1"
-        :spacing="0.2"
-        font-family="Verdana"
-        enter-animation="fade"
-      >
-        <template v-slot="{text, weight}">
-          <div :title="weight" style="cursor: pointer;">
-            {{ text }}
-          </div>
-        </template>
-      </vue-word-cloud>
+  <div>
+    <img src="@/assets/logo.svg"
+         style="height: 3vh; margin-left: 30%; margin-top: 6vh; z-index: 99; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7))"/>
+    <div class="center">
+      <div class="words">
+        <vue-word-cloud
+            style="height: 1800px; width: 2500px;"
+            :words="words"
+            :color="'#ffffff'"
+            :rotation="() => Math.random() * 2 - 1"
+            :spacing="0.2"
+            font-family="Verdana"
+            enter-animation="fade"
+        >
+          <template v-slot="{text, weight}">
+            <div :title="weight" style="cursor: pointer;">
+              {{ text }}
+            </div>
+          </template>
+        </vue-word-cloud>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import {ref, onMounted, onUnmounted} from 'vue';
 import VueWordCloud from 'vuewordcloud';
 
 let words = ref(JSON.parse(localStorage.getItem('words')) || []);
@@ -45,23 +47,23 @@ let intervalId;
 onMounted(() => {
   socket = new WebSocket(`wss://${process.env.VUE_APP_BACKEND_URL}`);
   socket.addEventListener('message', function (event) {
-  const word = event.data;
-  const timestamp = Date.now();
-  let size;
+    const word = event.data;
+    const timestamp = Date.now();
+    let size;
 
-  // Проверяем, существует ли слово уже в массиве words
-  const existingWord = words.value.find(([existingWord]) => existingWord === word);
+    // Проверяем, существует ли слово уже в массиве words
+    const existingWord = words.value.find(([existingWord]) => existingWord === word);
 
-  if (existingWord) {
-    existingWord[1] += 0.15;
-    size = existingWord[1];
-  } else {
-    size = getRandomInt(6, 9);
-    words.value.push([word, size, timestamp]);
-  }
+    if (existingWord) {
+      existingWord[1] += 0.15;
+      size = existingWord[1];
+    } else {
+      size = getRandomInt(6, 9);
+      words.value.push([word, size, timestamp]);
+    }
 
-  localStorage.setItem('words', JSON.stringify(words.value));
-});
+    localStorage.setItem('words', JSON.stringify(words.value));
+  });
 
   // intervalId = setInterval(() => {
   //   const fiveMinutesAgo = Date.now() - 1 * 60 * 1000;
@@ -79,16 +81,13 @@ onUnmounted(() => {
 });
 </script>
 
-<style scoped>
-.back {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  width: 100%;
-  height: 100%;
+<style >
+body{
+  background-color: #415da6;
+  overflow: hidden;
+  background: url(@/assets/background.jpg);
 }
+
 .center {
   height: 92vh;
   width: 99vw;
