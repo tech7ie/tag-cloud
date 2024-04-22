@@ -44,8 +44,13 @@ function getRandomInt(min, max) {
 let socket;
 let intervalId;
 
-onMounted(() => {
+function connect() {
   socket = new WebSocket(`wss://${process.env.VUE_APP_BACKEND_URL}`);
+
+  socket.addEventListener('open', function () {
+    console.log('Connected to the WebSocket server');
+  });
+
   socket.addEventListener('message', function (event) {
     const word = event.data;
     const timestamp = Date.now();
@@ -65,14 +70,19 @@ onMounted(() => {
     localStorage.setItem('words', JSON.stringify(words.value));
   });
 
-  // intervalId = setInterval(() => {
-  //   const fiveMinutesAgo = Date.now() - 1 * 60 * 1000;
-  //   words.value.sort((a, b) => a[2] - b[2]);
-  //   if (words.value.length > 0 && words.value[0][2] < fiveMinutesAgo) {
-  //     words.value.shift();
-  //   }
-  //   localStorage.setItem('words', JSON.stringify(words.value));
-  // }, 5000);
+  socket.addEventListener('close', function () {
+    console.log('Disconnected from the WebSocket server');
+    // Переподключаемся через 2 секунд, что бы рекурсия не накрыла приложение
+    setTimeout(connect, 2000);
+  });
+
+  socket.addEventListener('error', function (event) {
+    console.error('WebSocket error', event);
+  });
+}
+
+onMounted(() => {
+  connect();
 });
 
 onUnmounted(() => {
