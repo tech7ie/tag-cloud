@@ -86,6 +86,8 @@ body{
   background-color: #415da6;
   overflow: hidden;
   background: url(@/assets/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .center {
