@@ -12,6 +12,7 @@
             :spacing="0.2"
             font-family="Verdana"
             enter-animation="fade"
+            :font-size-ratio="5"
         >
           <template v-slot="{text, weight}">
             <div :title="weight" style="cursor: pointer;">
