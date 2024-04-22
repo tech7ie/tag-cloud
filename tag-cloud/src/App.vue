@@ -1,5 +1,5 @@
 <template>
-  <img src="@/assets/logo.svg" style="height: 3vh; margin: 2vh; margin-left: 30%; z-index: 99;" />
+  <img src="@/assets/logo.svg" style="height: 3vh; margin-left: 30%; margin-top: 6vh; z-index: 99; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7))" />
   <div class="center">
     <div class="words">
       <img src="./assets/IMG_1460.jpg" alt="" class="back">
@@ -86,7 +86,7 @@ onUnmounted(() => {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: -1;
-
+  width: 100%;
   height: 100%;
 }
 .center {
