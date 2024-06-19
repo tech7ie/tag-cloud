@@ -34,6 +34,11 @@ import { useRouter } from 'vue-router';
 import { AgGridVue } from 'ag-grid-vue3';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+const router = useRouter();
+
+if (!localStorage.getItem('accessToken')) {
+    router.push('/web/admin-login');
+}
 
 const words = ref([]);
 const columnDefs = [
@@ -47,8 +52,6 @@ const isEditing = ref(false);
 const currentWord = ref({ word: '', size: 7, weight: 7 });
 const originalWord = ref('');
 
-const router = useRouter();
-
 async function fetchWords() {
   try {
     const response = await fetch(`${process.env.VUE_APP_SSE_URL}/api/getword`, {
@@ -58,6 +61,7 @@ async function fetchWords() {
     });
 
     if (response.status === 401) {
+      localStorage.removeItem('accessToken')
       router.push('/web/admin-login');
       return;
     }
@@ -98,6 +102,7 @@ async function saveWord() {
     });
 
     if (response.status === 401) {
+      localStorage.removeItem('accessToken')
       router.push('/web/admin-login');
       return;
     }
@@ -119,6 +124,7 @@ async function deleteWord() {
     });
 
     if (response.status === 401) {
+      localStorage.removeItem('accessToken')
       router.push('/web/admin-login');
       return;
     }

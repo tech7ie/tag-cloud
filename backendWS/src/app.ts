@@ -4,6 +4,7 @@ import * as http from 'http';
 import pool from './database/db';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import checkToken from './middleware/auth';
 
 dotenv.config();
 

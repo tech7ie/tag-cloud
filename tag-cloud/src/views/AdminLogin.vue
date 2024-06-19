@@ -10,14 +10,17 @@
 
 <script>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   setup() {
+    const router = useRouter();
     const secretKey = ref('');
     const errorMessage = ref('');
 
     function verifySecretKey() {
-      localStorage.setItem('accessToken', 'Bearer ' + secretKey.value);
+      localStorage.setItem('accessToken', secretKey.value);
+      router.push('/web/admin');
     }
 
     return {

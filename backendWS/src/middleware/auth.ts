@@ -1,6 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
-
-const app = express();
+import { Request, Response, NextFunction } from 'express';
 
 function checkToken(req: Request, res: Response, next: NextFunction) {
   const token = req.headers['authorization'];
@@ -13,6 +11,4 @@ function checkToken(req: Request, res: Response, next: NextFunction) {
   next();
 }
 
-app.use(express.json());
-
-app.use('*', checkToken);
+export default checkToken
