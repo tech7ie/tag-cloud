@@ -54,7 +54,7 @@ async function fetchWords() {
 onMounted(() => {
   fetchWords();
   // connect();
-  setInterval(fetchWords, 1500);
+  setInterval(fetchWords, Number(process.env.VUE_APP_FETCH_DELAY));
 });
 
 // onUnmounted(() => {
