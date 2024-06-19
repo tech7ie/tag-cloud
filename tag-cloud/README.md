@@ -22,3 +22,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+-----------------------------------------------------------------
+
+### Применить dump
+docker-compose exec  db psql -U postgres -d cloudtags -f /docker-entrypoint-initdb.d/dump.sql

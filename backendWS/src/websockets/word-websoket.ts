@@ -1,13 +1,8 @@
-import * as WebSocket from 'ws';
-import { ws } from '../app';
+import { clients } from '../app';
 
-
-export function broadcast(data: string): void {
-  try {
-    ws.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(data);
-      }
-    });
-  } catch (e) {}
+export function broadcast(data: { word: string }): void {
+  const message = JSON.stringify(data);
+  clients.forEach(client => {
+    client.write(`data: ${message}\n\n`);
+  });
 }
