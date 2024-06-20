@@ -5,7 +5,7 @@
     <div class="center">
       <div class="words">
         <vue-word-cloud
-            style="height: 1800px; width: 2500px;"
+            style="height: 70vh; width: 70vw;"
             :words="words"
             :color="'#ffffff'"
             :rotation="0"
